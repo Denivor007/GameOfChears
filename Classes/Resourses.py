@@ -1,5 +1,5 @@
 class Resourses:
-    def __init__(self, money = 1000, wood = 200, stone = 200, iron = 50, med = 80):
+    def __init__(self, money = 1000, wood = 200, stone = 200, iron = 50, med = 70):
         self.money = money
         self.wood = wood
         self.stone = stone

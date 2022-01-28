@@ -1,4 +1,5 @@
-from Classes.Resourses import *
+from Classes.State import *
+from Classes.Buildings import *
 
 levels = {
     1:5,
@@ -9,42 +10,60 @@ levels = {
 }
 
 '''класс строения должен иметь цену, стоимость обслуживания (по дефолту 5% от цены)
-а так-же характеристики, т.е. что он позволяет делать'''
-class Building:
-    def __init__(self, name = "building", money = 1000, wood = 200, stone = 200, iron = 50):
-        self.name = name
-        self.price = Resourses(money,wood,stone,iron)
+а так-же характеристики, т.е. что он позволяет делать
 
-    def __str__(self):
-        return str(self.name)
 
-class State(object):
-    pass
+'''
+
+
+
 class Province:
-    def __init__(self,state = State, level = int, arrayOfBuildings = set, popularity = int):
+    def __init__(self,
+                 state = State,
+                 level = int,
+                 array_of_buildings = list,
+                 popularity = int,
+                 trained_units = int,
+                 hunger = int):
         self.state = state
-        self.level = level
-        self.arrayOfBuildings = set(arrayOfBuildings)
-        self.popularity = popularity
+        self.level = level #пока взаимодействие не реализовано
+        self.array_of_buildings = list(array_of_buildings)
+        self.popularity = popularity #пока взаимодействие не реализовано
 
-    def changeState(self, state_ = State):
-        if self in self.state.arrayOfProvinces:
-            self.state.arrayOfProvinces.remove(self)
-        self.state = state_
 
-    def buildSomething(self, building = Building):
-        if len(self.arrayOfBuildings) >= levels[self.level]:
+    @property
+    def level(self):
+        return self._level
+    @level.setter
+    def level(self, lvl):
+        lvls = levels.keys()
+        if lvl not in lvls:
+            raise Exception("{}incorrect level of province, should be between {} and {}".format(lvl, min(lvls), max(lvls)))
+        self._level = lvl
+
+
+    def changeState(self, state):
+        #if type(state) != type(State):
+        #   raise Exception("{} is not {}\n{} is not State object".format(type(state),type(State),state))
+        if self in self.state.array_of_provinces:
+            self.state.array_of_provinces.remove(self)
+        self.state = state
+
+    def buildSomething(self, building):
+        if type(building) != type(Building):
+            raise Exception("Not a building")
+        if len(self.array_of_buildings) >= levels[self.level]:
             raise Exception("Maximum count of buildings")
         if building.price > self.state.resourses:
             raise Exception("Out Of Rerourses")
-        self.arrayOfBuildings.add(building)
+        self.array_of_buildings.add(building)
         self.state.resourses = self.state.resourses - building.price
 
     def __str__(self):
         res = "{}st level\n"
         res += "State: {}\n"
         res += "Builings: \n"
-        for building in self.arrayOfBuildings:
+        for building in self.array_of_buildings:
             res += "\t--{}\n".format(str(building))
         res += "popularity: {}".format(self.popularity)
         return res.format(self.level, self.state.name)

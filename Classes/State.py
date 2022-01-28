@@ -1,19 +1,21 @@
+from Classes.Resourses import *
 from Classes.Province import *
+
 class State:
-    def __init__(self, _name_ ):
+    def __init__(self, _name_):
         self.name = _name_
-        self.arrayOfProvinces = []
+        self.array_of_provinces = []
         self.popularityModifier = 0
-        self.resourses = Resourses
+        self.resourses = Resourses()
 
     def append(self, prov ):
         prov.changeState(self)
-        self.arrayOfProvinces.append(prov)
+        self.array_of_provinces.append(prov)
 
     def printState(self):
         res = "|---\""+self.name+"\"---|"
         res += str(self.resourses)
-        for prov in self.arrayOfProvinces:
+        for prov in self.array_of_provinces:
             res += str(prov)
         return res
     def getProvArray(self):
@@ -23,7 +25,7 @@ class State:
         res = "|---\"" + self.name + "\"---|"
         res += "{}\n".format(str(self.resourses))
         i = 0
-        for prov in self.arrayOfProvinces:
+        for prov in self.array_of_provinces:
             i += 1
             res += "prov{} {}\n".format(i,str(prov))
             res += "____\n"
