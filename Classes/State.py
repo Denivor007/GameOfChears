@@ -8,6 +8,14 @@ class State:
         self.popularityModifier = 0
         self.resourses = Resourses()
 
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, nm = str):
+        self._name = nm
+
     def append(self, prov ):
         prov.changeState(self)
         self.array_of_provinces.append(prov)

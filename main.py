@@ -11,11 +11,32 @@ from Classes.State import State
        возможность призыва войск, призыва флота. А в постройках
        добавлять модификаторы этих характеристик
 '''
+GLOBAL = State("GLOBAL")
+provs= [
+ Province(GLOBAL, 1, [Kazarma, Farm], 90),
+ Province(GLOBAL, 1, [Kazarma, Farm], 80),
+ Province(GLOBAL, 1, [Kazarma, Farm], 90),
+ Province(GLOBAL, 1, [Kazarma, Farm], 80),
+ Province(GLOBAL, 1, [Kazarma, Farm], 90),
+ Province(GLOBAL, 1, [Kazarma, Farm], 80)
+]
 
-iven = State("iven")
-prov1 = Province(iven, 1, [Kazarma, Farm], 90)
-prov2 = Province(iven, 1, [Kazarma, Farm], 80)
-iven.append(prov1)
-iven.append(prov2)
-print(iven)
-Kazarma.doSomething((iven.array_of_provinces[0].array_of_buildings[0]))
+my_state = State
+def main():
+    while True:
+        name = input("Выбери имя страны")
+        if 1 < len(name) < 32:
+            my_state.name = name
+            break
+    while True:
+        message = "Выбери команду"
+        message += "\n1-Захватить провинцию \n2-Мои провинции \n3-Все провинции"
+        print("Выбери команду")
+        if message == 1:
+            pass
+
+
+
+
+
+

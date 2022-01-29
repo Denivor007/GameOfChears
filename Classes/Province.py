@@ -30,10 +30,10 @@ class Province:
         self.array_of_buildings = list(array_of_buildings)
         self.popularity = popularity #пока взаимодействие не реализовано
 
-
     @property
     def level(self):
         return self._level
+
     @level.setter
     def level(self, lvl):
         lvls = levels.keys()
@@ -41,13 +41,17 @@ class Province:
             raise Exception("{}incorrect level of province, should be between {} and {}".format(lvl, min(lvls), max(lvls)))
         self._level = lvl
 
+    @property
+    def state(self):
+        return self._state
 
-    def changeState(self, state):
-        #if type(state) != type(State):
+    @state.setter
+    def state(self, stt):
+        # if type(state) != type(State):
         #   raise Exception("{} is not {}\n{} is not State object".format(type(state),type(State),state))
         if self in self.state.array_of_provinces:
             self.state.array_of_provinces.remove(self)
-        self.state = state
+        self._state = stt
 
     def buildSomething(self, building):
         if type(building) != type(Building):
